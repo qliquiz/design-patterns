@@ -1,4 +1,4 @@
-from settings import settings
+from src.settings import settings
 import unittest
 
 class test_settings(unittest.TestCase):
