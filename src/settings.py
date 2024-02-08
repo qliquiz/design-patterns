@@ -11,3 +11,7 @@ class settings:
             raise Exception("Некорректный тип данных")
         
         self.__first_name = value.strip()
+
+    def check_INN(self, INN):
+        if len(INN) == 12:
+            raise Exception("Количество символов должно быть 12")
