@@ -1,4 +1,4 @@
-""" import os
+"""import os
 import json
 import uuid
 from settings import settings
@@ -60,8 +60,7 @@ class settings_manager:
         
         with open(settings_file, "r") as read_file:
             self.__data = json.load(read_file)
-"""
-
+""" 
 import os
 import json
 import uuid
@@ -110,30 +109,20 @@ class settings_manager(object) :
             return False
 
         return True
-        
     
     @property
     def data(self) -> {}:
-        """
-            РўРµРєСѓС‰РёРµ РґР°РЅРЅС‹Рµ 
-        Returns:
-            _type_: СЃР»РѕРІР°СЂСЊ
-        """
         return self.__data
     
     @property
     def number(self)-> str:
         return str(self.__unique_number.hex)
     
-    
     def __open(self):
         file_path = os.path.split(__file__)
         settings_file = "%s/%s" % (file_path[0], self.__file_name)
         if not os.path.exists(settings_file):
-            raise Exception("ERROR: РќРµРІРѕР·РјРѕР¶РЅРѕ Р·Р°РіСЂСѓР·РёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё! РќРµ РЅР°Р№РґРµРЅ С„Р°Р№Р» %s", settings_file)
+            raise Exception("ERROR")
 
         with open(settings_file, "r") as read_file:
-            self.__data = json.load(read_file)          
-    
-    
-    
+            self.__data = json.load(read_file)
