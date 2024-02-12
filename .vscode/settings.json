@@ -10,5 +10,6 @@
         "./tst",
         "-p",
         "test_*.py"
-    ]
+    ],
+    "editor.fontSize": 13
 }
