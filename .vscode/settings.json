@@ -11,5 +11,5 @@
         "-p",
         "test_*.py"
     ],
-    "editor.fontSize": 13
+    "editor.fontSize": 12
 }

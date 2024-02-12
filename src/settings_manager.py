@@ -4,29 +4,38 @@ import uuid
 from src.settings import settings
 
 class settings_manager(object) :
-    __file_name = "settings.json"
+    __file_path = "src/settings.json"
+    try:
+        file =  open(__file_path)
+        __file_name = json.load(file)
+    except FileNotFoundError:
+        print("Файл не найден.")
+
     __unique_number = None
     __data = {}
     
-    __settings = settings()
+    # __settings = settings()
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
             cls.instance = super(settings_manager, cls).__new__(cls)
-        return cls.instance  
+        return cls.instance
     
     def convert(self):
         if len(self.__data) == 0:
             raise Exception("ERROR: Невозможно создать объект settings.py")
         
-        fields = dir(self.__settings.__class__)
-        print(fields)
+        new_settings = settings()
+
+        # fields = dir(self.__settings.__class__)
+        # print(fields)
         
-        field = "first_name"
-        value = self.__data[field]
-        setattr(self.__settings, field, value)
+        for field in self.__data: # по циклу присваиваем полям их значения
+            value = self.__data[field]
+            setattr(new_settings, field, value)
         
-        print(self.__settings.first_name)        
+        # print(self.__settings.first_name)
+        return new_settings
     
     def __init__(self) -> None:
         self.__unique_number = uuid.uuid4()
@@ -36,7 +45,7 @@ class settings_manager(object) :
             raise Exception("ERROR: Неверный аргумент!")
         
         if file_name == "":
-            raise Exception("ERROR")
+            raise Exception("ERROR: Введите имя файла!")
         
         self.__file_name = file_name.strip()
 
@@ -48,7 +57,7 @@ class settings_manager(object) :
         return True
     
     @property
-    def data(self) -> {}:
+    def data(self):
         return self.__data
     
     @property
@@ -63,3 +72,5 @@ class settings_manager(object) :
 
         with open(settings_file, "r") as read_file:
             self.__data = json.load(read_file)
+    
+    file.close()
