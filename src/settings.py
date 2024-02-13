@@ -1,3 +1,5 @@
+# Создал новую ветвь check-branch
+
 class settings:
     __first_name = ""
     __INN = ""
