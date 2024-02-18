@@ -56,3 +56,4 @@ class error_proxy:
             self.error_text = f'Error: {str(exception)}'
             self.error_source = f'Exception: {type(exception)}'
         else: self.error_text = ''
+        
