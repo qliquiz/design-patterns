@@ -14,6 +14,7 @@ class test_errors(unittest.TestCase):
 
         assert 1 != 1
 
+
     def test_operation_exception(self):
         try:
             raise operation_exception('Test')
@@ -22,6 +23,7 @@ class test_errors(unittest.TestCase):
             return
 
         assert 1 != 1
+
 
     def test_check_set_exception(self):
         error = error_proxy()
@@ -32,6 +34,7 @@ class test_errors(unittest.TestCase):
             error.set_error(e)
 
         assert error.is_error == True
+        
 
     def test_check_error_test(self):
         error = error_proxy('Test', 'Test')
