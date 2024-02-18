@@ -17,8 +17,9 @@ class settings_manager(object) :
 
     __unique_number = None
     __data = {}
+    __settings = settings()
 
-    
+
     def __new__(cls):
         if not hasattr(cls, 'instance'):
             cls.instance = super(settings_manager, cls).__new__(cls)
@@ -36,11 +37,11 @@ class settings_manager(object) :
             setattr(new_settings, field, value)
         
         return new_settings
-    
+
 
     def __init__(self) -> None:
         self.__unique_number = uuid.uuid4()
-    
+
 
     def open(self, file_name: str) -> bool:
         if not isinstance(file_name, str):
@@ -62,12 +63,12 @@ class settings_manager(object) :
     @property
     def data(self):
         return self.__data
-    
+
 
     @property
     def number(self)-> str:
         return str(self.__unique_number.hex)
-    
+
 
     def __open(self):
         file_path = os.path.split(__file__)
@@ -78,6 +79,23 @@ class settings_manager(object) :
 
         with open(settings_file, "r") as read_file:
             self.__data = json.load(read_file)
+
+
+    @property 
+    def settings(self): 
+        return self.__settings
+
+    @property 
+    def data(self): 
+        return self.__data
     
+    @property
+    def number(self):
+        return str(self.__unique_number.hex)
+    
+    @number.setter
+    def number(self, value: int) -> str:
+        self.__unique_number = value
+
 
     file.close()

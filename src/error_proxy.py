@@ -13,8 +13,10 @@ class error_proxy:
     
     @error_text.setter
     def error_text(self, value:str):
-        if not isinstance(value, str): raise Exception('Некорректно передан аргумент!')
+        if not isinstance(value, str): raise Exception('Error: Некорректно передан аргумент!')
         
+        value = value.strip()
+
         if value.strip() == '':
             self.__is_error = False
             return
@@ -29,7 +31,9 @@ class error_proxy:
     
     @error_source.setter
     def error_source(self, value:str):
-        if not isinstance(value, str): raise Exception('Некорректно передан аргумент!')
+        if not isinstance(value, str): raise Exception('Error: Некорректно передан аргумент!')
+        
+        value = value.strip()
         
         if value.strip() == '':
             return
@@ -44,7 +48,7 @@ class error_proxy:
 
     def set_error(self, exception:Exception):
         if not isinstance(exception, Exception):
-            self.error_text = 'Некорректно переданы параметры!'
+            self.error_text = 'Error: Некорректно переданы параметры!'
             self.error_source = 'set_error'
             return
 

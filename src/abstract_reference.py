@@ -1,16 +1,16 @@
 import uuid
 from abc import ABC
 from src.argument_exception import argument_exception
-from error_proxy import error_proxy
+from src.error_proxy import error_proxy
 
 
-class abstruct_reference(ABC):
+class abstract_reference(ABC):
     __id: uuid.UUID
     __name:str = ''
     __error:error_proxy = error_proxy()
 
     def __init__(self, name:str = None) -> None:
-        self.name = name
+        self.__name = name
         self.__id = uuid.uuid4()
 
     @property
@@ -27,9 +27,14 @@ class abstruct_reference(ABC):
     
     def name(self, value:str):
         if not isinstance(value, str):
-            raise argument_exception('Неверный аргумент!')
+            raise argument_exception('Error: Неверный аргумент!')
         
         if value == '':
-            raise argument_exception('Некорректное наименование!')
+            raise argument_exception('Error: Некорректное наименование!')
+        
+        value = value.strip()
+
+        if len(value) >= 50:
+            raise argument_exception("Error: Неверная длина name!")
         
         self.__name = value.strip()
