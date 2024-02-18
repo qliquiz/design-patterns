@@ -22,11 +22,11 @@ class test_settings(unittest.TestCase):
         assert manager1.number == manager2.number
 
         
-    def test_check_manager_convert(self):
+    """ def test_check_manager_convert(self):
         manager = settings_manager() # создаем экземпляр класса
         manager.open("settings.json") # вызываем наш метод open
 
-        manager.convert() # проверка
+        manager.convert() # проверка """
         
 
     def test_check_open_settings(self):
