@@ -7,9 +7,9 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./tst",
+        "./Tst",
         "-p",
-        "test_*.py"
+        "*_test.py"
     ],
     "editor.fontSize": 12
 }

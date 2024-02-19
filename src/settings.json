@@ -1,9 +1,4 @@
 {
-    "first_name" : "Artem Gorev",
-    "INN" : "012345678912",
-    "biс" : "999000999",
-    "score" : "01234567891",
-    "correspondent_score" : "01234567891",
-    "name" : "MyScore",
-    "type_of_ownership" : "55555"
+   "inn":3800020344,
+   "short_name":"ООО Ромашка"
 }
