@@ -17,7 +17,7 @@ class reference(ABC):
 
     def __init__(self, name):
         _id = uuid.uuid4()
-        self.name = name
+        self._name = name
 
 
     @property

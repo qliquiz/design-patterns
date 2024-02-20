@@ -11,5 +11,6 @@
         "-p",
         "*_test.py"
     ],
-    "editor.fontSize": 12
+    "editor.fontSize": 12,
+    "python.REPL.enableREPLSmartSend": false
 }

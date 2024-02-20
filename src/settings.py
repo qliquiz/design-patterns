@@ -33,3 +33,13 @@ class settings():
     def short_name(self, value:str):
         exception_proxy.validate(value, str)
         self._short_name = value
+
+
+    @property
+    def is_first_start(self):
+        return self._first_start
+
+
+    @is_first_start.setter
+    def is_first_start(self, value:bool):
+        self._first_start = value

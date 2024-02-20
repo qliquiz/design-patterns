@@ -33,10 +33,10 @@ class unit_model(reference):
     
     
     @base_unit.setter
-    def base(self, value: reference ):
+    def base_unit(self, value: reference ):
         exception_proxy.validate(value, reference)
         self.__base_unit = value
-        
+    
     
     @property    
     def coefficient(self):
@@ -54,11 +54,23 @@ class unit_model(reference):
         if(value <= 0):
             raise argument_exception("Значение коэффициента должно быть > 1!")
         
-        self.__coefficient = value  
-        
-        
-        
-        
-        
+        self.__coefficient = value
+
+
+    @staticmethod
+    def create_gram():
+        item = unit_model("грамм", None, 1)
+        return item
+
+
+    @staticmethod
+    def create_kilogram():
+        base = unit_model.create_gram()
+        item = unit_model("киллограмм", base, 1000)
+        return item
     
-    
+
+    @staticmethod
+    def create_one():
+        item = unit_model("штука", None, 1)
+        return item
