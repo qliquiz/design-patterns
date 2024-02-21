@@ -3,31 +3,39 @@ from Src.Models.unit_model import unit_model
 from Src.Models.nomenclature_model import nomenclature_model
 from Src.settings import settings
 
-
+# Класс для обработки начало работы приложения
 class start_factory:
-    __options:settings = None
+    __oprions: settings = None
 
-    
-    def __init__(self, options:settings) -> None:
-        self.__options = options
+
+    def __init__(self, options: settings) -> None:
+        self.__oprions = options
 
 
     @staticmethod
     def create_nomenclature():
+        """
+        Фабричный метод Создать список номенклатуры
+        """
         result = []
-
-        item1 = nomenclature_model()
+        
+        item1 = nomenclature_model("Мука пшеничная")
         item1.group = group_model.create_group()
         item1.unit = unit_model.create_kilogram()
-
+        
         result.append(item1)
-
+        
         return result
-
-
+    
+    
     def create(self):
-        if self.__options.is_first_start == True:
-            self.__options.is_first_start = False
+        """
+        В зависимости от настроек, сформировать начальную номенклатуру
+        Returns:
+            _type_: _description_
+        """
+        if self.__oprions.is_first_start == True:
+            self.__oprions.is_first_start = False
             return start_factory.create_nomenclature()
         else:
             items = []

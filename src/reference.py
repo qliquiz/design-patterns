@@ -13,38 +13,38 @@ class reference(ABC):
     _description = ""
     " Информация об ошибке "
     _error = error_proxy()
-
+    
 
     def __init__(self, name):
         _id = uuid.uuid4()
-        self._name = name
-
+        self.name = name
+    
 
     @property
     def name(self):
         "Краткое наименование"
         return self._name
-
+    
 
     @name.setter
     def name(self, value: str):
         "Краткое наименование"
         exception_proxy.validate( value.strip(), str, 50)
         self._name = value.strip()
-
+    
 
     @property    
     def description(self):
         " Полное наименование "
         return self._description
-
-
+    
+    
     @description.setter
     def description(self, value: str):
         " Полное наименование "
         exception_proxy.validate( value.strip(), str)
         self._description = value.strip()
-
+        
 
     @property
     def id(self):
