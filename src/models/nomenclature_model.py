@@ -33,3 +33,9 @@ class nomenclature_model(reference):
         " Единица измерения "
         exception_proxy.validate(value, reference)
         self._unit = value
+
+
+    """ def __init__(self, name, group):
+        super().__init__(name)
+        self.name = name
+        self.group = group """

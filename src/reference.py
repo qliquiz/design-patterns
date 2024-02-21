@@ -32,12 +32,11 @@ class reference(ABC):
         exception_proxy.validate( value.strip(), str, 50)
         self._name = value.strip()
     
-
+    
     @property    
     def description(self):
         " Полное наименование "
         return self._description
-    
     
     @description.setter
     def description(self, value: str):

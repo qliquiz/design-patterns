@@ -1,6 +1,7 @@
 from Src.Models.unit_model import unit_model
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
+from Src.Storage.storage import storage
 import unittest
 
 
@@ -26,3 +27,7 @@ class factory_test(unittest.TestCase):
         result = factory.create()
 
         assert len(result) > 0
+        assert factory.storage is not None
+        assert storage.nomenclature_key() in factory.storage.data
+        assert storage.unit_key() in factory.storage.data
+        assert storage.group_key() in factory.storage.data
