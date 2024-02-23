@@ -13,7 +13,7 @@ class storage:
     def data(self) -> dict:
         return self.__data
     
-
+    
     @staticmethod
     def nomenclature_key():
         return 'nomenclature'
