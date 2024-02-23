@@ -33,4 +33,4 @@ class factory_test(unittest.TestCase):
             assert storage.unit_key() in factory.storage.data
             assert storage.group_key() in factory.storage.data
 
-        # assert len(result) == 0
+        assert len(result) != 0

@@ -135,17 +135,37 @@ class start_factory:
     @staticmethod
     def create_nomenclature():
         # Фабричный метод Создать список номенклатуры
-        result = []
+        waffles = []
+        meringue = []
+        caesar = []
+
+        waffles.append(nomenclature_model("Мука пшеничная", group_model.create_group(), unit_model.create_kilogram()))
+        waffles.append(nomenclature_model("Сахар", group_model.create_group(), unit_model.create_gram()))
+        waffles.append(nomenclature_model("Сливочное масло", group_model.create_group(), unit_model.create_gram()))
+        waffles.append(nomenclature_model("Яйца", group_model.create_group(), unit_model.create_one()))
+        waffles.append(nomenclature_model("Ванилин", group_model.create_group(), unit_model.create_gram()))
+
+        caesar.append(nomenclature_model("Куриное филе", group_model.create_group(), unit_model.create_kilogram()))
+        caesar.append(nomenclature_model("Салат Романо", group_model.create_group(), unit_model.create_gram()))
+        caesar.append(nomenclature_model("Сыр Пармезан", group_model.create_group(), unit_model.create_kilogram()))
+        caesar.append(nomenclature_model("Чеснок", group_model.create_group(), unit_model.create_one()))
+        caesar.append(nomenclature_model("Белый хлеб", group_model.create_group(), unit_model.create_kilogram()))
+        caesar.append(nomenclature_model("Соль", group_model.create_group(), unit_model.create_gram()))
+        caesar.append(nomenclature_model("Чёрный перец", group_model.create_group(), unit_model.create_gram()))
+        caesar.append(nomenclature_model("Оливковое масло", group_model.create_group(), unit_model.create_liter()))
+        caesar.append(nomenclature_model("Лимонный сок", group_model.create_group(), unit_model.create_one()))
+        caesar.append(nomenclature_model("Горчица дижонская", group_model.create_group(), unit_model.create_one()))
+        caesar.append(nomenclature_model("Яйца", group_model.create_group(), unit_model.create_one()))
+
+        meringue.append(nomenclature_model("Яичный белок", group_model.create_group(), unit_model.create_one()))
+        meringue.append(nomenclature_model("Сахарная пудра", group_model.create_group(), unit_model.create_gram()))
+        meringue.append(nomenclature_model("Ванилин", group_model.create_group(), unit_model.create_gram()))
+        meringue.append(nomenclature_model("Корица", group_model.create_group(), unit_model.create_gram()))
+        meringue.append(nomenclature_model("Какао", group_model.create_group(), unit_model.create_gram()))
         
-        item1 = nomenclature_model("Мука пшеничная")
-        item1.group = group_model.create_group()
-        item1.unit = unit_model.create_kilogram()
-        
-        result.append(item1)
-        
-        return result
-    
-    
+        return waffles, caesar, meringue
+
+
     def create(self):
         """
         В зависимости от настроек, сформировать начальную номенклатуру

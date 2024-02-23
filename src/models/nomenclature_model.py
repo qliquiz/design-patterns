@@ -35,7 +35,8 @@ class nomenclature_model(reference):
         self._unit = value
 
 
-    """ def __init__(self, name, group):
+    def __init__(self, name, group = None, unit = None):
         super().__init__(name)
         self.name = name
-        self.group = group """
+        self.group = group
+        self.unit = unit
