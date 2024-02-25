@@ -1,6 +1,5 @@
 class storage:
     __data = {}
-    __nomenclature_key = 'nomenclature'
 
 
     def __new__(cls):
