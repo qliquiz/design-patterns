@@ -1,26 +1,21 @@
 from Src.reference import reference
 from Src.exceptions import exception_proxy, argument_exception
 
-#
 # Модель единицы измерения для номенклатуры
-#
 class unit_model(reference):
-    
     # Базовая единица измерения
     __base_unit: reference = None
-    
     # Коэффициент пересчета к базовой единице измерения
     __coefficient: int = 1
-    
-    def __init__(self, name: str, base_unit: reference = None, coefficient: int = 1 ):
+
+
+    def __init__(self, name: str, base: reference = None, coeff: int = 1 ):
         super().__init__(name)
-        
-        if base_unit != None:
-            self.base_unit = base_unit
-            
-        if coefficient != 1:
-            self.coefficient = coefficient    
-        
+        if base != None:
+            self.base_unit = base
+        if coeff != 1:
+            self.coefficient = coeff   
+    
     
     @property
     def base_unit(self):
@@ -33,10 +28,10 @@ class unit_model(reference):
     
     
     @base_unit.setter
-    def base(self, value: reference ):
+    def base_unit(self, value: reference ):
         exception_proxy.validate(value, reference)
         self.__base_unit = value
-        
+    
     
     @property    
     def coefficient(self):
@@ -47,18 +42,67 @@ class unit_model(reference):
         """
         return self.__coefficient
     
+
     @coefficient.setter
-    def   coefficient(self, value:int):
+    def coefficient(self, value:int):
         exception_proxy.validate(value, int)
-        
         if(value <= 0):
             raise argument_exception("Значение коэффициента должно быть > 1!")
-        
         self.__coefficient = value  
         
         
-        
-        
-        
+    @staticmethod    
+    def create_gram():
+        """
+            Создать единицу измерения грамм
+        Returns:
+            _type_: _description_
+        """
+        item = unit_model("грамм", None, 1)
+        return item
     
     
+    @staticmethod
+    def create_kilogram():
+        """
+            Создать единицу килограмм
+        Returns:
+            _type_: _description_
+        """
+        base = unit_model.create_gram()
+        item = unit_model("киллограмм", base, 1000)
+        return item
+    
+
+    @staticmethod    
+    def create_one():
+        """
+            Создать единицу измерения штука
+        Returns:
+            _type_: _description_
+        """
+        item = unit_model("штука", None, 1)
+        return item
+    
+
+    @staticmethod    
+    def create_ml():
+        """
+            Создать единицу измерения миллилитр
+        Returns:
+            _type_: _description_
+        """
+        item = unit_model("миллилитр", None, 1)
+        return item
+    
+
+    @staticmethod    
+    def create_liter():
+        """
+            Создать единицу измерения миллилитр
+        Returns:
+            _type_: _description_
+        """
+        base = unit_model.create_ml()
+        item = unit_model("литр", None, 1000)
+        return item
