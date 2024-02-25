@@ -3,7 +3,7 @@ from Src.Models.nomenclature_model import nomenclature_model
 from Src.Models.unit_model import unit_model
 from Src.exceptions import exception_proxy
 
-
+# Список ингредиентов рецепта
 class recipe_model(reference):
     __nomeclature:nomenclature_model = None
     __size:int = 0
@@ -39,3 +39,35 @@ class recipe_model(reference):
     @nomenclature.setter
     def nomenclature(self, value:int):
         self.__nomeclature = value
+
+
+# Рецепт
+class recipe(reference):
+    __ingredients: list
+    __description: str
+
+
+    def __init__(self, _name: str, _ingredients: list[recipe_model], _description: str):
+        self.__ingredients = _ingredients
+        self.__description = _description
+        super().__init__(_name)
+
+
+    @property
+    def ingredients(self):
+        return self.__description
+
+
+    @ingredients.setter
+    def ingredients(self, value: str):
+        self.__ingredients = value
+
+
+    @property
+    def description(self):
+        return self.__description
+
+
+    @description.setter
+    def description(self, value: str):
+        self.__description = value
