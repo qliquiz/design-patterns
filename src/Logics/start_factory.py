@@ -77,9 +77,7 @@ class start_factory:
         meringue.append(nomenclature_model("Корица", meringue_group, unit_model.create_gram()))
         meringue.append(nomenclature_model("Какао", meringue_group, unit_model.create_gram()))
         
-        result = [waffles, caesar, meringue]
-
-        return result
+        return waffles, caesar, meringue
 
 
     @staticmethod
@@ -91,9 +89,7 @@ class start_factory:
         recipe2 = recipe('Цезарь с курицей', nomenclatures[1], 'Обалденный Цезарь с курочкой))')
         recipe3 = recipe('Безе', nomenclatures[2], 'ЛЕГЕНДАРНЫЙ РЕЦЕПТ БЕЗЕ)))')
 
-        result = [recipe1, recipe2, recipe3]
-
-        return result
+        return [recipe1, recipe2, recipe3]
 
 
     def create(self):
@@ -102,13 +98,19 @@ class start_factory:
         Returns:
             _type_: _description_
         """
-        result = []
+        # result = []
         if self.__options.is_first_start == True:
             self.__options.is_first_start = False
             # Формируем и запоминаем номенклатуру
-            result = start_factory.create_recipes()
-            self.__save( storage.nomenclature_key(), result )
-            self.__save( storage.group_key(), result )
-            self.__save( storage.unit_key(), result )
+            waffles, caesar, meringue = start_factory.create_recipes()
+            for recipe in waffles, caesar, meringue:
+                self.__save( storage.nomenclature_key(), recipe )
+                self.__save( storage.group_key(), recipe )
+                self.__save( storage.unit_key(), recipe )
+            # result = start_factory.create_recipes()
+            # self.__save( storage.nomenclature_key(), result )
+            # self.__save( storage.group_key(), result )
+            # self.__save( storage.unit_key(), result )
 
-        return result
+        # return result
+        return waffles, caesar, meringue

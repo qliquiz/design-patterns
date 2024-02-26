@@ -25,6 +25,8 @@ class factory_test(unittest.TestCase):
         items = start_factory.create_recipes()
         # Проверка
         assert items[0].name == 'Ваффли в ваффельнице'
+        assert items[1].name == 'Цезарь с курицей'
+        assert items[2].name == 'Безе'
 
 
     def test_check_create_method(self):
@@ -41,5 +43,9 @@ class factory_test(unittest.TestCase):
             assert storage.unit_key() in factory.storage.data
             assert storage.group_key() in factory.storage.data
             assert storage.recipe() in factory.storage.data
+            assert storage.nomenclature_key() == 'nomenclature'
+            assert storage.unit_key() == 'unit'
+            assert storage.group_key() == 'group'
+            assert storage.recipe() == 'recipe'
 
         assert len(result) != 0
