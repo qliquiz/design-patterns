@@ -23,5 +23,5 @@ class storage:
         return 'unit'
 
     @staticmethod
-    def recipe():
+    def recipe_key():
         return 'recipe'

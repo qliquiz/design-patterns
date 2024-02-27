@@ -14,25 +14,21 @@ class reference(ABC):
     " Информация об ошибке "
     _error = error_proxy()
     
-
     def __init__(self, name):
         _id = uuid.uuid4()
         self.name = name
     
-
     @property
     def name(self):
         "Краткое наименование"
         return self._name
     
-
     @name.setter
     def name(self, value: str):
         "Краткое наименование"
         exception_proxy.validate( value.strip(), str, 50)
         self._name = value.strip()
-    
-    
+        
     @property    
     def description(self):
         " Полное наименование "
@@ -44,14 +40,27 @@ class reference(ABC):
         exception_proxy.validate( value.strip(), str)
         self._description = value.strip()
         
-
     @property
     def id(self):
         " Уникальный код записи "
         return self._id  
 
-
     @property
     def is_error(self):
         " Флаг. Есть ошибка "
-        return self._error.error != ""
+        return self._error.error != ""  
+    
+    @staticmethod
+    def create_dictionary(items: list):
+        """
+            Сформировать словарь из списка элементов reference 
+        Args:
+            items (list): _description_
+        """
+        exception_proxy.validate(items, list)
+        
+        result = {}
+        for position in items:
+            result[ position.name ] = position
+
+        return result   

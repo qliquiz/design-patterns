@@ -4,6 +4,7 @@ from Src.exceptions import exception_proxy
 class settings():
     _inn = 0
     _short_name = ""
+    _first_start = True
     
     @property
     def inn(self):

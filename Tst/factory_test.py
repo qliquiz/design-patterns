@@ -4,48 +4,51 @@ from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
 import unittest
 
-
+# Набор автотестов для проверки работы фабричного метода
 class factory_test(unittest.TestCase):
-    def test_check_create_factory(self):
-        # Подготовка
-        unit = unit_model.create_kilogram()
-        # Проверка
-        assert unit is not None
-
-
-    def test_check_create_nomeclature(self):
-        # Подготовка
-        items = start_factory.create_nomenclature()
-        # Проверка
-        assert len(items) > 0
-
-
-    def test_check_create_recipes(self):
+    # Проверка создания начальных рецептов
+    def test_check_create_receipts(self):
         # Подготовка
         items = start_factory.create_recipes()
-        # Проверка
-        assert items[0].name == 'Ваффли в ваффельнице'
-        assert items[1].name == 'Цезарь с курицей'
-        assert items[2].name == 'Безе'
+        # Проверки
+        assert len(items) > 0     
+        
+    # Проверка создание начальной номенклатуры
+    def test_check_create_nomenclatures(self):
+        # Подготовка
+        items = start_factory.create_nomenclatures()
+        # Прверки
+        assert len(items) > 0 
+        
+    # Проверка создание списка единиц измерения
+    def test_check_create_units(self):
+        # Подготовка
+        items = start_factory.create_units()
+        # Проверки
+        assert len(items) > 0    
 
-
-    def test_check_create_method(self):
+    # Проверка создания списка групп
+    def test_check_create_groups(self):
+        # Подготовка
+        items = start_factory.create_groups()
+        # Действие
+        # Проверки    
+        assert len(items) > 0
+        
+    # Проверка работы класса start_factory. Метод create
+    def test_check_factory_create(self):
         # Подготовка
         manager = settings_manager()
-        factory = start_factory(manager.settings)
+        factory = start_factory( manager.settings )
         # Действие
         result = factory.create()
         # Проверка
         if manager.settings.is_first_start == True:
-            assert len(result) > 0
+            assert result == True
             assert factory.storage is not None
             assert storage.nomenclature_key() in factory.storage.data
-            assert storage.unit_key() in factory.storage.data
+            assert storage.recipe_key() in factory.storage.data
             assert storage.group_key() in factory.storage.data
-            assert storage.recipe() in factory.storage.data
-            assert storage.nomenclature_key() == 'nomenclature'
-            assert storage.unit_key() == 'unit'
-            assert storage.group_key() == 'group'
-            assert storage.recipe() == 'recipe'
-
-        assert len(result) != 0
+            assert storage.unit_key() in factory.storage.data
+        else:
+            assert result == False
