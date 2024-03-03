@@ -1,30 +1,20 @@
 from Src.Logics.reporting import reporting
-from Src.exceptions import operation_exception
 
 
 class csv_reporting(reporting):
-    def create(self, key: str):
+    def create(self, key: str) -> str:
         super().create(key)
-        result = ''
+        res = ''
         separator = '; '
-        data = self.data[key]
+        data = self.getData[key]
+        headers = separator.join(self.getFields)
+        res += f'{headers}\n'
         
-        # Проверка данных
-        if data is None or len(data) == 0:
-            raise operation_exception('Error: данные пусты!')
-        
-        # Заголовоки
-        headers = separator.join(self.fields)
-        result += f'{headers}\n'
-        
-        # Действие
         for elem in data:
             row = ''
-
-            for field in self.fields:
-                value = getattr(elem, field)
-                row += f'{value}; '
-
-            result += f'{row[:-1]}\n'
+            for field in self.getFields:
+                val = getattr(elem, field)
+                row += f'{val}; '
+            res += f'{row[:-1]}\n'
         
-        return result
+        return res

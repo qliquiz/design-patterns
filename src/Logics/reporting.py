@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from Src.settings import settings
-from Src.exceptions import operation_exception
 
 
 class reporting(ABC):
@@ -14,22 +13,26 @@ class reporting(ABC):
         self.__data = _data
 
 
+    @property         
+    def getData(self) -> dict:
+        return self.__data
+
+
+    @property
+    def getFields(self) -> list:
+        return self.__fields
+
+
     @abstractmethod
     def create(self, key:str) -> str:
-        self.__fields = self.build(key, self.__data)
-        return ''
-
-
-    def build(key:str, data:dict) -> list:
-        # Проверка данных
-        if data is None or len(data) == 0:
-            raise operation_exception('Error: данные пусты!')
-        
+        data = self.__data
+        res = []
         elem = data[key][0]
-        result = list(filter(lambda x: not x.startswith("_") and not x.startswith("create_") , dir(elem)))
-        
-        return result
+        attrs = dir(elem) # получаем список всех атрибутов 
 
+        for attr in attrs:
+            res.append(attr)
 
-    def _build(self, key: str) -> list:
-        return self.build(key, self.__data)
+        self.__fields = res # запись
+
+        return ''
