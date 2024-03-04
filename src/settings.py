@@ -45,3 +45,13 @@ class settings():
     @is_first_start.setter
     def is_first_start(self, value:bool):
         self._first_start = value
+
+
+    @property
+    def report_format(self):
+        return self._report_format
+
+
+    @report_format.setter
+    def report_format(self, value:str):
+        self._report_format = value
