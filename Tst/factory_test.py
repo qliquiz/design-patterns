@@ -1,7 +1,7 @@
-from Src.Models.unit_model import unit_model
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
+from Src.Logics.report_factory import report_factory
 import unittest
 
 # Набор автотестов для проверки работы фабричного метода
@@ -52,3 +52,16 @@ class factory_test(unittest.TestCase):
             assert storage.unit_key() in factory.storage.data
         else:
             assert result == False
+
+
+    def test_check_report_factore_create(self):
+        # Подготовка
+        manager = settings_manager()
+        start = start_factory(manager.settings)
+        start.create()
+        factory = report_factory()
+        key = storage.unit_key()
+        # Действие
+        result = factory.create('csv', start.storage.data)
+        # Проверка
+        assert result is not None
