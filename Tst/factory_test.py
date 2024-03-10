@@ -54,7 +54,7 @@ class factory_test(unittest.TestCase):
             assert result == False
 
 
-    def test_check_report_factore_create(self):
+    def test_check_report_factory_create(self):
         # Подготовка
         manager = settings_manager()
         start = start_factory(manager.settings)
@@ -62,6 +62,6 @@ class factory_test(unittest.TestCase):
         factory = report_factory()
         key = storage.unit_key()
         # Действие
-        result = factory.create('csv', start.storage.data)
+        result = factory.create(manager.settings.report_format, start.storage.data)
         # Проверка
         assert result is not None
