@@ -65,3 +65,4 @@ class factory_test(unittest.TestCase):
         result = factory.create(manager.settings.report_format, start.storage.data)
         # Проверка
         assert result is not None
+        
