@@ -1,3 +1,4 @@
+import datetime
 from Src.reference import reference
 from Src.exceptions import exception_proxy, argument_exception
 
@@ -106,3 +107,8 @@ class unit_model(reference):
         base = unit_model.create_ml()
         item = unit_model("литр", None, 1000)
         return item
+    
+
+    @property
+    def period(self):
+        return datetime.datetime.now()
