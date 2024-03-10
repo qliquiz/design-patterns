@@ -8,12 +8,12 @@ class reporting(ABC):
     _fields : list
 
 
-    def __init__(self, settings_:settings, data_) -> None:
+    def __init__(self, settings_, data_) -> None:
         self._settings = settings_
         self._data = data_
 
 
-    @property         
+    @property
     def data(self) -> dict:
         return self._data
 
