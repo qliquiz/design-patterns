@@ -5,7 +5,7 @@ class settings():
     _inn = 0
     _short_name = ""
     _first_start = True
-    _report_format = ''
+    _report_format = "csv"
     
     @property
     def inn(self):

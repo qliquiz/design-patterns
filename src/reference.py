@@ -63,4 +63,16 @@ class reference(ABC):
         for position in items:
             result[ position.name ] = position
 
-        return result   
+        return result 
+
+
+    @staticmethod
+    def create_fields(source):
+        result = []
+        attrs = dir(source)
+
+        for attr in attrs:
+            if not (attr.startswith("_") or attr.startswith("create_")):
+                result.append(attr)
+
+        return result  
