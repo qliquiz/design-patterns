@@ -1,11 +1,11 @@
 from Src.reference import reference
-from Src.Models.recipe_row_model import recipe_row_model
+from Src.Models.receipe_row_model import receipe_row_model
 from Src.exceptions import exception_proxy , operation_exception, argument_exception
 
 #
 # Класс описание рецепта приготовления блюда
 #
-class recipe_model(reference):
+class receipe_model(reference):
     # Вес брутто
     _brutto: int = 0
     
@@ -21,23 +21,28 @@ class recipe_model(reference):
     # Описание
     _comments: str = ""
     
-    def add(self, row: recipe_row_model):
+    def  rows_ids(self):
+        result = []
+        for item in self._rows:
+            result.append(item.value.id)
+    
+    def add(self, row: receipe_row_model):
         """
             Добавить/ изменить состав блюда
         Args:
-            row (recipe_row_model): _description_
+            row (receipe_row_model): _description_
         """
-        exception_proxy.validate(row, recipe_row_model)
+        exception_proxy.validate(row, receipe_row_model)
         self._rows[row.name] = row
         self.__calc_brutto()
         
-    def delete(self, row: recipe_row_model):
+    def delete(self, row: receipe_row_model):
         """
             Удалить из состава блюда
         Args:
-            row (recipe_row_model): _description_
+            row (receipe_row_model): _description_
         """
-        exception_proxy.validate(row, recipe_row_model)
+        exception_proxy.validate(row, receipe_row_model)
         
         if row.name in self._rows.keys():
             self._rows.pop(row.name)
@@ -71,7 +76,7 @@ class recipe_model(reference):
     @property    
     def instructions(self):
         """
-            Инструкции для приготовления
+           Инструкции для приготовления
         Returns:
             _type_: _description_
         """
@@ -81,6 +86,7 @@ class recipe_model(reference):
     def comments(self):
         return self._comments
     
+      
     @comments.setter
     def comments(self, value: str):
         """
@@ -90,10 +96,19 @@ class recipe_model(reference):
         """
         exception_proxy.validate(value, str)
         self._comments = value   
+        
+    @property            
+    def consist(self) -> list:
+        """
+            Состав рецепта
+        Returns:
+            _type_: _description_
+        """
+        return self._rows    
     
     
     @staticmethod
-    def create_recipe(name: str, comments: str, items: list, data: list):
+    def create_receipt(name: str, comments: str, items: list, data: list):
         """
             Фабричный метод. Сформировать рецепт
         Args:
@@ -104,8 +119,9 @@ class recipe_model(reference):
         Raises:
             operation_exception: _description_
             operation_exception: _description_
+
         Returns:
-            recipe_model: _description_
+            receipe_model: _description_
         """
         exception_proxy.validate(name, str)
         if len(items) == 0:
@@ -115,7 +131,7 @@ class recipe_model(reference):
         # Подготовим словарь со списком номенклатуры
         nomenclatures = reference.create_dictionary(data)    
                 
-        receipt = recipe_model(name)
+        receipt = receipe_model(name)
         
         for position in items:
             # Получаем список кортежей и берем первое значение
@@ -144,7 +160,7 @@ class recipe_model(reference):
                 unit = nomenclature.unit.base_unit    
             
             # Создаем запись в рецепте
-            row = recipe_row_model(nomenclature, size, unit)
+            row = receipe_row_model(nomenclature, size, unit)
             receipt.add(row)
         
         return receipt

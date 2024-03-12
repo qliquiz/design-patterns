@@ -1,31 +1,41 @@
 from Src.Logics.reporting import reporting
+from Src.exceptions import operation_exception
 
 
+#
+# Класс - реализация построение данных в формате csv
+#
 class csv_reporting(reporting):
-    def create(self, key: str) -> str:
-        data = self.data
-        res = []
-        elem = data[key][0]
+    
+    def create(self, storage_key: str):
+        super().create(storage_key)
+        result = ""
+        delimetr = ";"
 
-        attrs = dir(elem) # получаем список всех атрибутов 
-
-        for attr in attrs:
-            if not (attr.startswith("_") or attr.startswith("create_")):
-                res.append(attr)
-
-        self.fields = res # запись
-
-        res = ''
-        separator = '; '
-        data = self.data[key]
-        headers = separator.join(self.fields)
-        res += f'{headers}\n'
+        # Исходные данные
+        items = self.data[ storage_key ]
+        if items == None:
+            raise operation_exception("Невозможно сформировать данные. Данные не заполнены!")
         
-        for elem in data:
-            row = ''
+        if len(items) == 0:
+            raise operation_exception("Невозможно сформировать данные. Нет данных!")
+        
+        # Заголовок 
+        header = delimetr.join(self.fields)
+        result += f"{header}\n"
+        
+        # Данные
+        for item in items:
+            row = ""
             for field in self.fields:
-                val = getattr(elem, field)
-                row += f'{val}; '
-            res += f'{row[:-1]}\n'
+                value = getattr(item, field)
+                if value is None:
+                    value = ""
+                    
+                row +=f"{value}{delimetr}"
+                
+            result += f"{row[:-1]}\n"
+            
         
-        return res
+        # Результат csv
+        return result

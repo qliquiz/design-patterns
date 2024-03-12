@@ -1,12 +1,15 @@
 import os
 import json
 import uuid
+
 from Src.settings import settings
 from Src.errors import error_proxy
 from Src.exceptions import exception_proxy
 
 
+#
 # Менеджер настроек
+#   
 class settings_manager(object):
     # Наименование файла по умолчанию
     _settings_file_name = "settings.json"
@@ -23,7 +26,7 @@ class settings_manager(object):
         if not hasattr(cls, 'instance'):
             cls.instance = super(settings_manager, cls).__new__(cls)
         return cls.instance  
-
+      
 
     def __init__(self):
         if self._uniqueNumber is None:
@@ -33,7 +36,7 @@ class settings_manager(object):
             # После загрузки создаем объект класса settings
             self._settings = settings()
             self.__load()
-
+                
 
     def __open(self):
         """
@@ -49,7 +52,6 @@ class settings_manager(object):
                 self._data = json.load(read_file)     
         except:
             self._error.set_error( Exception("ERROR: Невозможно загрузить настройки! Не найден файл %s", settings_file))     
-
 
     def open(self, file_name: str):
         """
@@ -68,18 +70,24 @@ class settings_manager(object):
         """
             Private: Загрузить словарь в объект
         """
+        
         if len(self._data) == 0:
             return
+        
         # Список полей от типа назначения    
         fields = list(filter(lambda x: not x.startswith("_"), dir(self._settings.__class__)))
+        
         # Заполняем свойства 
         for field in fields:
             keys = list(filter(lambda x: x == field, self._data.keys()))
             if len(keys) != 0:
                 value = self._data[field]
+                
                 # Если обычное свойство - заполняем.
                 if not isinstance(value, list) and not isinstance(value, dict):
                     setattr(self._settings, field, value)
+                
+        
     
     @property    
     def settings(self) -> settings:
@@ -107,3 +115,6 @@ class settings_manager(object):
             error_proxy: 
         """
         return self._error
+
+
+    
