@@ -5,27 +5,23 @@ from Src.Models.nomenclature_model import nomenclature_model
 from Src.reference import reference
 from Src.Models.receipe_model import receipe_model
 from Src.Models.receipe_row_model import receipe_row_model
-
 # Системное
 from Src.settings import settings
 from Src.Storage.storage import storage
 from Src.exceptions import exception_proxy, operation_exception, argument_exception
 
-#
 # Класс для обработки данных. Начало работы приложения
-#
 class start_factory:
     __oprions: settings = None
     __storage: storage = None
     
     def __init__(self, _options: settings,
-                 _storage: storage = None) -> None:
+                _storage: storage = None) -> None:
         
         exception_proxy.validate(_options, settings)
         self.__oprions = _options
         self.__storage = _storage
         
-    
     def __save(self, key:str, items: list):
         """
             Сохранить данные
@@ -43,7 +39,7 @@ class start_factory:
     @property            
     def storage(self):
         """
-             Ссылка на объект хранилище данных
+            Ссылка на объект хранилище данных
         Returns:
             _type_: _description_
         """
@@ -70,26 +66,26 @@ class start_factory:
     @staticmethod
     def create_nomenclatures():
         """
-          Сформировать список номенклатуры
+            Сформировать список номенклатуры
         """
         
         group = group_model.create_default_group()
         items = [ {"Мука пшеничная": "киллограмм"}, 
-                  {"Сахар":"киллограмм"}, 
-                  {"Сливочное масло" : "киллограмм"}, 
-                  {"Яйца": "штука"}, {"Ванилин": "грамм"}, 
-                  {"Куриное филе": "киллограмм"}, 
-                  {"Салат Романо": "грамм"},
-                  {"Сыр Пармезан" : "киллограмм"}, 
-                  {"Чеснок": "киллограмм"}, 
-                  {"Белый хлеб": "киллограмм"},
-                  {"Соль": "киллограмм"}, {"Черный перец": "грамм"}, 
-                  {"Оливковое масло": "литр"}, 
-                  {"Лимонный сок": "литр"},
-                  {"Горчица дижонская": "грамм"},
-                  {"Сахарная пудра": "грамм"},{"Ванилиин": "грамм"},
-                  {"Корица": "грамм"},
-                  {"Какао": "киллограмм"}]
+                {"Сахар":"киллограмм"}, 
+                {"Сливочное масло" : "киллограмм"}, 
+                {"Яйца": "штука"}, {"Ванилин": "грамм"}, 
+                {"Куриное филе": "киллограмм"}, 
+                {"Салат Романо": "грамм"},
+                {"Сыр Пармезан" : "киллограмм"}, 
+                {"Чеснок": "киллограмм"}, 
+                {"Белый хлеб": "киллограмм"},
+                {"Соль": "киллограмм"}, {"Черный перец": "грамм"}, 
+                {"Оливковое масло": "литр"}, 
+                {"Лимонный сок": "литр"},
+                {"Горчица дижонская": "грамм"},
+                {"Сахарная пудра": "грамм"},{"Ванилиин": "грамм"},
+                {"Корица": "грамм"},
+                {"Какао": "киллограмм"}]
         
         # Подготовим словарь со список единиц измерения
         units = reference.create_dictionary(start_factory.create_units())
@@ -116,9 +112,9 @@ class start_factory:
             # Создаем объект - номенклатура
             item = nomenclature_model( name, group, units[unit_name])
             result.append(item)
-          
+            
         return result
-      
+        
     @staticmethod      
     def create_groups():
         """
@@ -155,7 +151,7 @@ class start_factory:
         
         # ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ
         items = [ {"Мука пшеничная": 100}, {"Сахар": 80}, {"Сливочное масло": 70},
-                  {"Яйца": 1} , {"Ванилин": 5 }
+                    {"Яйца": 1} , {"Ванилин": 5 }
                 ]
         item = receipe_model.create_receipt("ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ", "", items, data)
         
@@ -172,10 +168,9 @@ class start_factory:
         
         # Цезарь с курицей
         items = [ {"Куриное филе": 200}, {"Салат Романо": 50}, {"Сыр Пармезан": 50},
-                  {"Чеснок": 10} , {"Белый хлеб": 30 }, {"Соль": 5}, {"Черный перец": 2},
-                  {"Оливковое масло": 10}, {"Лимонный сок": 5}, {"Горчица дижонская": 5},
-                  {"Яйца": 2}
-                ]
+                {"Чеснок": 10} , {"Белый хлеб": 30 }, {"Соль": 5}, {"Черный перец": 2},
+                {"Оливковое масло": 10}, {"Лимонный сок": 5}, {"Горчица дижонская": 5},
+                {"Яйца": 2}]
         item =  receipe_model.create_receipt("Цезарь с курицей", "", items, data)
         item.instructions.extend([
             "Нарезать куриное филе кубиками, нарубите чеснок, нарежьте хлеб на кубики."
@@ -198,7 +193,7 @@ class start_factory:
     # Основной метод
     def create(self) -> bool:
         """
-           В зависимости от настроек, сформировать или загрузить набор данных
+            В зависимости от настроек, сформировать или загрузить набор данных
         Returns:
             _type_: _description_
         """
@@ -210,7 +205,7 @@ class start_factory:
             # 2. Формируем и запоминаем рецепты
             items = start_factory.create_receipts(items)
             self.__save( storage.receipt_key(), items)
-      
+
             # 3. Формируем и запоминаем единицы измерения
             items = start_factory.create_units()
             self.__save( storage.unit_key(), items)
@@ -219,19 +214,6 @@ class start_factory:
             items = start_factory.create_groups()
             self.__save( storage.group_key(), items)
             return True
-           
-           
         else:
             # Другой вариант. Загрузка из источника данных    
             return False
-        
-        
-    
-        
-        
-        
-        
-    
-    
-    
-    
