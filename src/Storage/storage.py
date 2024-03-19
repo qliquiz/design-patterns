@@ -41,6 +41,15 @@ class storage:
         return "groups"
       
       
+    @staticmethod
+    def storage_transaction_key():
+        """
+            Список складских проводок
+        Returns:
+            _type_: _description_
+        """
+        return "transactions"  
+    
 
     @staticmethod  
     def unit_key():
