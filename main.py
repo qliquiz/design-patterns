@@ -43,7 +43,7 @@ def get_report(storage_key: str):
 
 @app.route("/api/storage/turns", methods = ["GET"] )
 def get_turns():
-    # Получить параметры
+    """ # Получить параметры
     args = request.args
     if "start_period" not in args.keys():
         return error_proxy.create_error_response(app, "Необходимо передать параметры: start_period, stop_period!", 500)
@@ -52,11 +52,15 @@ def get_turns():
         return error_proxy.create_error_response(app, "Необходимо передать параметры: start_period, stop_period!", 500)
     
     start_date = datetime.strptime(args["start_period"], "%Y-%m-%d")
-    stop_date = datetime.strptime(args["stop_period"], "%Y-%m-%d")
+    stop_date = datetime.strptime(args["stop_period"], "%Y-%m-%d") """
+
+    start_date = datetime.strptime('2024-01-01', "%Y-%m-%d")
+    stop_date = datetime.strptime('2024-01-10', "%Y-%m-%d")
     
     source_data = start.storage.data[  storage.storage_transaction_key()   ]      
     data = storage_service( source_data   ).create_turns( start_date, stop_date )      
     result = storage_service.create_response( data, app )
+    
     return result
 
 
