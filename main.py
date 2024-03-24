@@ -1,4 +1,5 @@
 from flask import Flask, request
+from Src.Logics.storage_prototype import storage_prototype
 from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
 from Src.errors import error_proxy
@@ -62,6 +63,25 @@ def get_turns():
     result = storage_service.create_response( data, app )
     
     return result
+
+
+@app.route("/api/storage/<nomenclature_id>/turns", methods = ["GET"])
+def get_nomenclature_turns(nomenclature_id: str):
+    nomenclature_id = int(nomenclature_id)
+    manager = settings_manager()
+    start = start_factory(manager.settings)
+    start.create()
+
+    transaction_key = storage.storage_transaction_key()
+    transaction_data = start.storage.data[transaction_key]
+
+    nomenclature_key = storage.nomenclature_key()
+    nomenclature_data = start.storage.data[nomenclature_key][nomenclature_id]
+
+    prototype = storage_prototype(transaction_data)
+    result = prototype.nomenclature_filter(nomenclature_data)
+
+    return storage_service.create_response(result.data, app)
 
 
 if __name__ == "__main__":

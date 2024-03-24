@@ -1,3 +1,4 @@
+from Src.Models.nomenclature_model import nomenclature_model
 from Src.Logics.convert_factory import convert_factory
 from Src.Logics.process_factory import process_factory
 from Src.Logics.storage_prototype import storage_prototype
@@ -43,7 +44,7 @@ class storage_service:
         # Обороты
         turns =  processing().process( filter.data )
         return turns
-        
+    
     @staticmethod        
     def create_response( data: list, app):
         """"

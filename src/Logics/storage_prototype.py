@@ -1,3 +1,4 @@
+from Src.Models.nomenclature_model import nomenclature_model
 from Src.exceptions import argument_exception
 from Src.errors import error_proxy
 from datetime import datetime
@@ -15,7 +16,7 @@ class storage_prototype(error_proxy):
         
         self.__data = data
 
-    def filter( self,start_period: datetime, stop_period: datetime  ):
+    def date_filter( self,start_period: datetime, stop_period: datetime  ):
         """
             Отфильтровать по периоду
         Args:
@@ -42,6 +43,19 @@ class storage_prototype(error_proxy):
                 result.append(item)
                 
         return   storage_prototype( result )
+    
+    def nomenclature_filter(self, nomenclature: nomenclature_model):
+        if not isinstance(nomenclature, nomenclature_model):
+            self.error = "Некорректная номенклатура!"
+        if not self.is_empty:
+            return self.__data
+        
+        result = []
+        for item in self.__data:
+            if item.nomenclature == nomenclature:
+                result.append(item)
+
+        return storage_prototype(result)
     
     @property
     def data(self):
