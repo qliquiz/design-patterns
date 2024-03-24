@@ -52,7 +52,7 @@ class storage_prototype(error_proxy):
         
         result = []
         for item in self.__data:
-            if item.nomenclature == nomenclature:
+            if item.nomenclature.id == nomenclature.id:
                 result.append(item)
 
         return storage_prototype(result)

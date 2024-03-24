@@ -45,3 +45,4 @@ class prototype_test(unittest.TestCase):
         # Проверка
         assert isinstance(result, storage_prototype)
         assert prototype.is_empty
+        assert len(result.data) > 0
