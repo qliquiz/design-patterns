@@ -1,3 +1,5 @@
+from Src.Models.storage_model import storage_model
+from Src.Models.receipe_model import receipe_model
 from Src.Models.nomenclature_model import nomenclature_model
 from Src.exceptions import argument_exception
 from Src.errors import error_proxy
@@ -52,7 +54,34 @@ class storage_prototype(error_proxy):
         
         result = []
         for item in self.__data:
-            if item.nomenclature.id == nomenclature.id:
+            if item.nomenclature.name == nomenclature.name:
+                result.append(item)
+
+        return storage_prototype(result)
+    
+    def recipe_filter(self, recipe: receipe_model):
+        if not isinstance(recipe, receipe_model):
+            self.error = "Некорректный рецепт!"
+        if not self.is_empty:
+            return self.__data
+        
+        result = []
+        rows = set([row.name for row in recipe.rows])
+        for item in self.__data:
+            if item.nomenclature.name in rows:
+                result.append(item)
+
+        return storage_prototype(result)
+    
+    def storage_filter(self, storage: storage_model):
+        if not isinstance(storage, storage_model):
+            self.error = "Некорректный склад!"
+        if not self.is_empty:
+            return self.__data
+        
+        result = []
+        for item in self.__data:
+            if item.storage.name == storage.name:
                 result.append(item)
 
         return storage_prototype(result)

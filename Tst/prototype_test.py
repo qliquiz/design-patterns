@@ -1,3 +1,4 @@
+from Src.Logics.storage_service import storage_service
 from Src.Logics.storage_prototype import storage_prototype
 from Src.Logics.start_factory import start_factory
 import unittest
@@ -46,3 +47,17 @@ class prototype_test(unittest.TestCase):
         assert isinstance(result, storage_prototype)
         assert prototype.is_empty
         assert len(result.data) > 0
+
+    def test_check_recipe_prototype(self):
+        options = settings_manager()
+        start = start_factory(options.settings)
+        start.create()
+
+        recipe = start.storage.data[storage.receipt_key()][0]
+        strg = start.storage.data[storage.nomenclature_key()][0]
+
+        service = storage_service(start.storage.data[storage.storage_transaction_key()])
+        result = service.rewriting(recipe, strg)
+
+        assert result is not None
+        assert len(result) != 0

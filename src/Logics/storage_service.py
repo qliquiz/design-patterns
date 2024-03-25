@@ -1,3 +1,6 @@
+from Src.Models.storage_row_model import storage_row_model
+from Src.Models.receipe_model import receipe_model
+from Src.Models.storage_model import storage_model
 from Src.Models.nomenclature_model import nomenclature_model
 from Src.Logics.convert_factory import convert_factory
 from Src.Logics.process_factory import process_factory
@@ -43,6 +46,21 @@ class storage_service:
     
         # Обороты
         turns =  processing().process( filter.data )
+        return turns
+    
+    def rewriting(self, recipe: receipe_model, storage: storage_model):
+        # Фильтруем      
+        prototype = storage_prototype(self.__data)
+        transactions = prototype.storage_filter(storage)
+        transactions = prototype.recipe_filter(recipe)
+        transactions = prototype.data
+
+        # Подобрать процессинг
+        key_turn = process_factory.turn_key()
+        processing = process_factory().create(key_turn)
+        
+        # Обороты
+        turns = processing().process(transactions)
         return turns
     
     @staticmethod        
