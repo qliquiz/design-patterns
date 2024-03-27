@@ -25,6 +25,10 @@ class receipe_model(reference):
         result = []
         for item in self._rows:
             result.append(item.value.id)
+
+    @property
+    def rows(self):
+        return self._rows
     
     def add(self, row: receipe_row_model):
         """
